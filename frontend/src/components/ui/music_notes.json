@@ -1,0 +1,239 @@
+{
+    "C2": {
+        "clef": "bass",
+        "keys": ["c/2"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "C2.mp3",
+        "answer": "C"
+    },
+
+    "C3": {
+        "clef": "bass",
+        "keys": ["c/3"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "C3.mp3",
+        "answer": "C"
+    },
+    "C4": {
+        "clef": "treble",
+        "keys": ["c/4"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "C4.mp3",
+        "answer": "C"
+    },
+    "C5": {
+        "clef": "treble",
+        "keys": ["c/5"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "C5.mp3",
+        "answer": "C"
+    },
+    "C6": {
+        "clef": "treble",
+        "keys": ["c/6"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "C6.mp3",
+        "answer": "C"
+    },
+    "D2": {
+        "clef": "bass",
+        "keys": ["d/2"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "D2.mp3",
+        "answer": "D"
+    },
+
+    "D3": {
+        "clef": "bass",
+        "keys": ["d/3"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "D3.mp3",
+        "answer": "D"
+    },
+    "D4": {
+        "clef": "treble",
+        "keys": ["d/4"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "D4.mp3",
+        "answer": "D"
+    },
+    "D5": {
+        "clef": "treble",
+        "keys": ["d/5"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "D5.mp3",
+        "answer": "D"
+    },
+   "E2": {
+        "clef": "bass",
+        "keys": ["e/2"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "E2.mp3",
+        "answer": "E"
+    },
+
+    "E3": {
+        "clef": "bass",
+        "keys": ["e/3"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "E3.mp3",
+        "answer": "E"
+    },
+    "E4": {
+        "clef": "treble",
+        "keys": ["e/4"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "E4.mp3",
+        "answer": "E"
+    },
+    "E5": {
+        "clef": "treble",
+        "keys": ["e/5"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "E5.mp3",
+        "answer": "E"
+    },
+    "F2": {
+        "clef": "bass",
+        "keys": ["f/2"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "F2.mp3",
+        "answer": "F"
+    },
+
+    "F3": {
+        "clef": "bass",
+        "keys": ["f/3"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "F3.mp3",
+        "answer": "F"
+    },
+    "F4": {
+        "clef": "treble",
+        "keys": ["f/4"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "F4.mp3",
+        "answer": "F"
+    },
+    "F5": {
+        "clef": "treble",
+        "keys": ["f/5"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "F5.mp3",
+        "answer": "F"
+    },
+    "G2": {
+        "clef": "bass",
+        "keys": ["g/2"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "G2.mp3",
+        "answer": "G"
+    },
+
+    "G3": {
+        "clef": "bass",
+        "keys": ["g/3"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "G3.mp3",
+        "answer": "G"
+    },
+    "G4": {
+        "clef": "treble",
+        "keys": ["g/4"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "G4.mp3",
+        "answer": "G"
+    },
+    "G5": {
+        "clef": "treble",
+        "keys": ["g/5"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "G5.mp3",
+        "answer": "G"
+    },
+    "A2": {
+        "clef": "bass",
+        "keys": ["a/2"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "A2.mp3",
+        "answer": "A"
+    },
+    "A3": {
+        "clef": "bass",
+        "keys": ["a/3"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "A3.mp3",
+        "answer": "A"
+    },
+    "A4": {
+        "clef": "treble",
+        "keys": ["a/4"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "A4.mp3",
+        "answer": "A"
+    },
+    "A5": {
+        "clef": "treble",
+        "keys": ["a/5"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "A5.mp3",
+        "answer": "A"
+    },
+    "B2": {
+        "clef": "bass",
+        "keys": ["b/2"],
+        "duration": "q",
+        "stem_direction": 1,
+        "mp3_name": "B2.mp3",
+        "answer": "B"
+    },
+    "B3": {
+        "clef": "bass",
+        "keys": ["b/3"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "B3.mp3",
+        "answer": "B"
+    },
+    "B4": {
+        "clef": "treble",
+        "keys": ["b/4"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "B4.mp3",
+        "answer": "B"
+    },
+    "B5": {
+        "clef": "treble",
+        "keys": ["b/5"],
+        "duration": "q",
+        "stem_direction": -1,
+        "mp3_name": "B5.mp3",
+        "answer": "B"
+    }
+}
