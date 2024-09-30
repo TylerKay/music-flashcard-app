@@ -1,9 +1,9 @@
 "use client";
-import LandingPage from "@/components/ui/LandingPage";
-import MainCardPage from "@/components/ui/MainCardPage";
-import CompletedPage from "@/components/ui/CompletedPage";
+import LandingPage from "@/pages/LandingPage";
+import MainCardPage from "@/pages/MainCardPage";
+import CompletedPage from "@/pages/CompletedPage";
 
-import { usePageStore } from "@/components/ui/usePageStore";
+import { usePageStore } from "@/stores/usePageStore";
 import React from "react";
 
 export default function Home() {

@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button"
-import { useCardStore } from "./CardStore"
-import { supabase } from '../../lib/supabase';
-import { useStopwatchStore } from "@/components/ui/useStopwatchStore";
-import { usePageStore } from "./usePageStore";
+import { useCardStore } from "../../stores/CardStore"
+import { useStopwatchStore } from "@/stores/useStopwatchStore";
+import { usePageStore } from "../../stores/usePageStore";
 import React from "react";
+import { insertMusicNote } from "../../utils/createMusicNote";
 
 export function AnswerRows() {
   const { answer, incrementCurrCardIndex, cardArray, currCardIndex, incorrect_attempts, resetIncorrectAttempts, incrementIncorrectAttempts, attemptId } = useCardStore();
@@ -13,24 +13,16 @@ export function AnswerRows() {
 
   const checkAnswer = async (inputAnswer: string) => {
     if (inputAnswer === answer) {
-      console.log("Correct. It took you", time, "seconds");
+      // console.log("Correct. It took you", time, "seconds");
       resetStopwatch();
 
-
-      // Insert correct answer into supabase
-      const { error } = await supabase
-        .from('music_notes')
-        .insert([
-          { note : cardArray[currCardIndex], time: time, incorrect_attempts: incorrect_attempts, attempt_id: attemptId }
-        ]);
-
-      if (error) console.error(error);
+      await insertMusicNote(cardArray, currCardIndex, time, incorrect_attempts, attemptId);
 
 
       // Last card
       if (currCardIndex === cardArray.length - 1) {
         stopStopwatch();
-        console.log("You have completed the whole set of cards!");
+        // console.log("You have completed the whole set of cards!");
         
         incrementPageState();
         
@@ -48,7 +40,7 @@ export function AnswerRows() {
     }
     else {
       incrementIncorrectAttempts();
-      console.log("incorrect. You inputted:", inputAnswer);
+      // console.log("incorrect. You inputted:", inputAnswer);
     }
   }
 

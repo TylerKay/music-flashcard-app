@@ -1,12 +1,12 @@
 "use client";
-import { MusicCard } from "./MusicCard"
-import { AnswerRows } from "./AnswerRows"
-import { useCardStore } from "./CardStore";
-import { useStopwatchStore } from "@/components/ui/useStopwatchStore";
-// import { useEffect } from "react"
-import music_notes from "./music_notes.json";
+import { MusicCard } from "../components/ui/MusicCard"
+import { AnswerRows } from "../components/ui/AnswerRows"
+import { useCardStore } from "../stores/CardStore";
+import { useStopwatchStore } from "@/stores/useStopwatchStore";
+import music_notes from "../data/music_notes.json";
 import { useEffect } from "react";
-import { supabase } from '../../lib/supabase';
+import { fetchMusicNotes } from "../utils/fetchMusicNotes";
+import { getRandomizedNoteNames } from "@/utils/CardsUtil";
 import React from "react";
 
 export default function MainCardPage() {
@@ -22,41 +22,15 @@ export default function MainCardPage() {
   //   ))
   // }
 
-    function getRandomizedNoteNames(notes: typeof music_notes) {
-        // Get all the note names (keys) from the JSON object
-        const noteNames = Object.keys(notes);
-
-        // Shuffle the note names array
-        for (let i = noteNames.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [noteNames[i], noteNames[j]] = [noteNames[j], noteNames[i]];
-        }
-
-        return noteNames;
-    }
-
-
-
-  
 
   useEffect(() => {
     // Test all cards
     // grabAllCards();
     // setCardArray(allCards);
     // setCurrCardIndex(0);
-    
-    // test supabase
-    const fetchData = async () => {
-      const { data: tableData, error } = await supabase
-        .from('music_notes')
-        .select('*');
-
-      if (error) console.error(error);
-      console.log("tableData: ", tableData);
-    };
 
     // Grab the data and initialize the cards
-    fetchData();
+    fetchMusicNotes();
     allCards = getRandomizedNoteNames(music_notes);
 
     // Set initial state
@@ -75,12 +49,12 @@ export default function MainCardPage() {
     // Ensure cardArray is defined and has the currentMusicCard
     if (cardArray && cardArray[currCardIndex]) {
       const currentMusicCard = cardArray[currCardIndex];
-      console.log("currentMusicCard: ", currentMusicCard);
+      // console.log("currentMusicCard: ", currentMusicCard);
 
       // Check if currentMusicCard exists in music_notes
       if (music_notes[currentMusicCard as MusicNotesKeys]) {
         setAnswer(music_notes[currentMusicCard as MusicNotesKeys].answer);
-        console.log("answer: ", answer);
+        // console.log("answer: ", answer);
       } else {
         console.error(`No entry found in music_notes for key: ${currentMusicCard}`);
       }
@@ -91,8 +65,6 @@ export default function MainCardPage() {
 
   return (
     <>
-      {/* {<p>currCardIndex: {currCardIndex}</p>}
-      {cardArray[currCardIndex]} */}
       <div className="flex flex-col items-center justify-center min-h-screen">
         {cardArray && answer ? (
           <>

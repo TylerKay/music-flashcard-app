@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import MusicNotation from './MusicNotation';
-import music_notes from "./music_notes.json";
+import music_notes from "../../data/music_notes.json";
 import React from "react"
 
 type CardProps = React.ComponentProps<typeof Card> & {
