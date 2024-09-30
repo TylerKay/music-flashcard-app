@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { supabase } from '../../lib/supabase';
 import { useStopwatchStore } from "@/components/ui/useStopwatchStore";
 import { usePageStore } from "./usePageStore";
+import React from "react";
 
 export function AnswerRows() {
   const { answer, setAnswer, incrementCurrCardIndex, cardArray, setCardArray, setCurrCardIndex, currCardIndex, incorrect_attempts, setIncorrectAttempts, resetIncorrectAttempts, incrementIncorrectAttempts, attemptId, setAttemptId } = useCardStore();

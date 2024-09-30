@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 import MusicNotation from './MusicNotation';
-import BassClefNotation from "./BassClefNotation";
 import music_notes from "./music_notes.json";
+import React from "react"
 
 type CardProps = React.ComponentProps<typeof Card> & {
   noteString: string; // Accept 'note' prop in the component

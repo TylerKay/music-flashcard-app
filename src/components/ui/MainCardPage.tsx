@@ -7,6 +7,7 @@ import { useStopwatchStore } from "@/components/ui/useStopwatchStore";
 import music_notes from "./music_notes.json";
 import { useEffect } from "react";
 import { supabase } from '../../lib/supabase';
+import React from "react";
 
 export default function MainCardPage() {
   const musicCardsArr = ["C2", "C3", "C4", "C5"];
