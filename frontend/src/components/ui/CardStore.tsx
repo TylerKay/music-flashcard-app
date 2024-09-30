@@ -15,7 +15,9 @@ interface CardStoreState {
     setIncorrectAttempts: (newIncorrectAttempts: number) => void;
     resetIncorrectAttempts: () => void;
     incrementIncorrectAttempts: () => void;
-    
+
+    attemptId: number;
+    setAttemptId: (newAttemptId: number) => void;
 }
 
 export const useCardStore = create<CardStoreState>((set) => ({
@@ -39,4 +41,7 @@ export const useCardStore = create<CardStoreState>((set) => ({
     setIncorrectAttempts: (newIncorrectAttempts: number) => set({ incorrect_attempts: newIncorrectAttempts }),
     resetIncorrectAttempts: () => set({ incorrect_attempts: 0 }),
     incrementIncorrectAttempts: () => set((state) => ({ incorrect_attempts: state.incorrect_attempts + 1 })),
+
+    attemptId: -1,
+    setAttemptId: (newAttemptId: number) => set({ attemptId: newAttemptId })
 }));

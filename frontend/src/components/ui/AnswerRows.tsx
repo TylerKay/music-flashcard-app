@@ -6,22 +6,17 @@ import { useCardStore } from "./CardStore"
 import { useEffect } from "react";
 import { supabase } from '../../lib/supabase';
 import { useStopwatchStore } from "@/components/ui/useStopwatchStore";
+import { usePageStore } from "./usePageStore";
 
 export function AnswerRows() {
-  const { answer, setAnswer, incrementCurrCardIndex, cardArray, setCardArray, setCurrCardIndex, currCardIndex, incorrect_attempts, setIncorrectAttempts, resetIncorrectAttempts, incrementIncorrectAttempts } = useCardStore();
+  const { answer, setAnswer, incrementCurrCardIndex, cardArray, setCardArray, setCurrCardIndex, currCardIndex, incorrect_attempts, setIncorrectAttempts, resetIncorrectAttempts, incrementIncorrectAttempts, attemptId, setAttemptId } = useCardStore();
   const { time, startStopwatch, stopStopwatch, resetStopwatch, isRunning } = useStopwatchStore();
+  const { pageState, incrementPageState } = usePageStore();
 
-
-  // useEffect(() => {
-  //   console.log(answer)
-    
-  // }, [answer]);
 
   const checkAnswer = async (inputAnswer: string) => {
-    // setAnswer(answer)
-
     if (inputAnswer === answer) {
-      console.log("correct. It took you", time, "seconds");
+      console.log("Correct. It took you", time, "seconds");
       resetStopwatch();
 
 
@@ -29,7 +24,7 @@ export function AnswerRows() {
       const { error } = await supabase
         .from('music_notes')
         .insert([
-          { note : cardArray[currCardIndex], time: time, incorrect_attempts: incorrect_attempts }
+          { note : cardArray[currCardIndex], time: time, incorrect_attempts: incorrect_attempts, attempt_id: attemptId }
         ]);
 
       if (error) console.error(error);
@@ -39,6 +34,10 @@ export function AnswerRows() {
       if (currCardIndex === cardArray.length - 1) {
         stopStopwatch();
         console.log("You have completed the whole set of cards!");
+        
+        incrementPageState();
+        
+
       } else { // move to next card
         incrementCurrCardIndex();
         startStopwatch()
@@ -49,9 +48,6 @@ export function AnswerRows() {
         
       }
 
-      
-      
-      // console.log("new card index: ", currCardIndex);
     }
     else {
       incrementIncorrectAttempts();
