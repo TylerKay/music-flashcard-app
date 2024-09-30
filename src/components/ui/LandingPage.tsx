@@ -6,8 +6,8 @@ import { usePageStore } from "./usePageStore";
 
 
 export default function LandingPage() {
-    const { attemptId, setAttemptId } = useCardStore();
-    const { setPageState, pageState, incrementPageState } = usePageStore();
+    const { setAttemptId } = useCardStore();
+    const { setPageState } = usePageStore();
 
     const createAttempt = async () => {
         const { data, error } = await supabase

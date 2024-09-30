@@ -10,17 +10,17 @@ import { supabase } from '../../lib/supabase';
 import React from "react";
 
 export default function MainCardPage() {
-  const musicCardsArr = ["C2", "C3", "C4", "C5"];
-  const { answer, setAnswer, incrementCurrCardIndex, cardArray, setCardArray, setCurrCardIndex, currCardIndex } = useCardStore();
+  // const musicCardsArr = ["C2", "C3", "C4", "C5"];
+  const { answer, setAnswer, cardArray, setCardArray, setCurrCardIndex, currCardIndex } = useCardStore();
   type MusicNotesKeys = keyof typeof music_notes; // Create a type for valid keys
-  var allCards = [];
-  const { time, startStopwatch, stopStopwatch, resetStopwatch, isRunning } = useStopwatchStore();
+  let allCards = [];
+  const { time, startStopwatch } = useStopwatchStore();
   
-  const grabAllCards = () => {
-    Object.entries(music_notes).map(([noteName, note]) => (
-      allCards.push(noteName)
-    ))
-  }
+  // const grabAllCards = () => {
+  //   Object.entries(music_notes).map(([noteName]) => (
+  //     allCards.push(noteName)
+  //   ))
+  // }
 
     function getRandomizedNoteNames(notes: typeof music_notes) {
         // Get all the note names (keys) from the JSON object

@@ -3,12 +3,11 @@ import LandingPage from "@/components/ui/LandingPage";
 import MainCardPage from "@/components/ui/MainCardPage";
 import CompletedPage from "@/components/ui/CompletedPage";
 
-import { useCardStore } from "@/components/ui/CardStore";
 import { usePageStore } from "@/components/ui/usePageStore";
 import React from "react";
 
 export default function Home() {
-  const { setPageState, pageState, incrementPageState } = usePageStore();
+  const { pageState } = usePageStore();
   // Initialize Component to Landing Page first. After button is clicked, go to MainCardPage
 
   return (

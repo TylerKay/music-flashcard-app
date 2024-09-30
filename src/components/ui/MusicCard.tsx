@@ -1,4 +1,4 @@
-import { BellRing, Check } from "lucide-react"
+import { Check } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
 import MusicNotation from './MusicNotation';
 import music_notes from "./music_notes.json";
 import React from "react"

@@ -1,18 +1,14 @@
-import { BellRing, Check } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useCardStore } from "./CardStore"
-import { useEffect } from "react";
 import { supabase } from '../../lib/supabase';
 import { useStopwatchStore } from "@/components/ui/useStopwatchStore";
 import { usePageStore } from "./usePageStore";
 import React from "react";
 
 export function AnswerRows() {
-  const { answer, setAnswer, incrementCurrCardIndex, cardArray, setCardArray, setCurrCardIndex, currCardIndex, incorrect_attempts, setIncorrectAttempts, resetIncorrectAttempts, incrementIncorrectAttempts, attemptId, setAttemptId } = useCardStore();
-  const { time, startStopwatch, stopStopwatch, resetStopwatch, isRunning } = useStopwatchStore();
-  const { pageState, incrementPageState } = usePageStore();
+  const { answer, incrementCurrCardIndex, cardArray, currCardIndex, incorrect_attempts, resetIncorrectAttempts, incrementIncorrectAttempts, attemptId } = useCardStore();
+  const { time, startStopwatch, stopStopwatch, resetStopwatch } = useStopwatchStore();
+  const { incrementPageState } = usePageStore();
 
 
   const checkAnswer = async (inputAnswer: string) => {
