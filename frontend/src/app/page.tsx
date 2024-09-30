@@ -1,45 +1,56 @@
 "use client";
-
-import { BellRing, Check } from "lucide-react"
- 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
 import { MusicCard } from "../components/ui/MusicCard"
 import { AnswerRows } from "../components/ui/AnswerRows"
 import { useCardStore } from "../components/ui/CardStore";
+import { useStopwatchStore } from "@/components/ui/useStopwatchStore";
 // import { useEffect } from "react"
 import music_notes from "../components/ui/music_notes.json";
 import { useEffect } from "react";
+import { supabase } from '../lib/supabase';
 
 export default function Home() {
   const musicCardsArr = ["C2", "C3", "C4", "C5"];
-  var currentMusicCard = musicCardsArr[0];
   const { answer, setAnswer, incrementCurrCardIndex, cardArray, setCardArray, setCurrCardIndex, currCardIndex } = useCardStore();
   type MusicNotesKeys = keyof typeof music_notes; // Create a type for valid keys
-  // var allCards = [];
+  var allCards = [];
+  const { time, startStopwatch, stopStopwatch, resetStopwatch, isRunning } = useStopwatchStore();
   
-  // const grabAllCards = () => {
-  //   Object.entries(music_notes).map(([noteName, note]) => (
-  //     allCards.push(noteName)
-  //   ))
-  // }
+  const grabAllCards = () => {
+    Object.entries(music_notes).map(([noteName, note]) => (
+      allCards.push(noteName)
+    ))
+  }
+
+  
 
   useEffect(() => {
+    // Test all cards
+    // grabAllCards();
+    // setCardArray(allCards);
+    // setCurrCardIndex(0);
+    
+    // test supabase
+    const fetchData = async () => {
+      const { data: tableData, error } = await supabase
+        .from('music_notes')
+        .select('*');
+
+      if (error) console.error(error);
+      console.log("tableData: ", tableData);
+    };
+
+    fetchData();
+    startStopwatch();
+
+
+
     // Set initial state
     setCardArray(musicCardsArr);
     setCurrCardIndex(0);
-    // grabAllCards();
-    // setCardArray(allCards);
-    setCurrCardIndex(0);
+
+    
+
+
   }, []);
 
   useEffect(() => {
@@ -67,6 +78,7 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center min-h-screen">
         {cardArray && answer ? (
           <>
+            <h1>Time: {new Date(time).toISOString().substr(11, 8)}</h1>
             <MusicCard noteString={cardArray[currCardIndex]} />
             <AnswerRows />
           </>

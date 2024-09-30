@@ -10,6 +10,12 @@ interface CardStoreState {
 
     answer: string; // Type for answer state
     setAnswer: (newAnswer: string) => void; // Type for the setAnswer function
+
+    incorrect_attempts: number;
+    setIncorrectAttempts: (newIncorrectAttempts: number) => void;
+    resetIncorrectAttempts: () => void;
+    incrementIncorrectAttempts: () => void;
+    
 }
 
 export const useCardStore = create<CardStoreState>((set) => ({
@@ -28,4 +34,9 @@ export const useCardStore = create<CardStoreState>((set) => ({
 
     answer: "", // Initial state
     setAnswer: (newAnswer: string) => set({ answer: newAnswer }), // Action to set a new answer
+
+    incorrect_attempts: 0,
+    setIncorrectAttempts: (newIncorrectAttempts: number) => set({ incorrect_attempts: newIncorrectAttempts }),
+    resetIncorrectAttempts: () => set({ incorrect_attempts: 0 }),
+    incrementIncorrectAttempts: () => set((state) => ({ incorrect_attempts: state.incorrect_attempts + 1 })),
 }));
