@@ -1,69 +1,90 @@
-import { Button } from "@/components/ui/button"
-import { useCardStore } from "../../stores/CardStore"
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { useCardStore } from "../../stores/CardStore";
 import { useStopwatchStore } from "@/stores/useStopwatchStore";
 import { usePageStore } from "../../stores/usePageStore";
-import React from "react";
+import React, { useState } from "react";
 import { insertMusicNote } from "../../utils/createMusicNote";
 
 export function AnswerRows() {
-  const { answer, incrementCurrCardIndex, cardArray, currCardIndex, incorrect_attempts, resetIncorrectAttempts, incrementIncorrectAttempts, attemptId } = useCardStore();
+  const {
+    answer,
+    incrementCurrCardIndex,
+    cardArray,
+    currCardIndex,
+    incorrect_attempts,
+    resetIncorrectAttempts,
+    incrementIncorrectAttempts,
+    attemptId,
+  } = useCardStore();
+  
   const { time, startStopwatch, stopStopwatch, resetStopwatch } = useStopwatchStore();
   const { incrementPageState } = usePageStore();
+  
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [feedbackClass, setFeedbackClass] = useState("");
+  const [disabledButtons, setDisabledButtons] = useState(new Set());
 
+  const disableButton = (button: string) => {
+    setDisabledButtons((prev) => new Set(prev).add(button));
+  };
+
+  const resetDisabledButtons = () => {
+    setDisabledButtons(new Set());
+  };
 
   const checkAnswer = async (inputAnswer: string) => {
+    if (loading) return;
+    setLoading(true);
+    
     if (inputAnswer === answer) {
-      // console.log("Correct. It took you", time, "seconds");
       resetStopwatch();
+      try {
+        await insertMusicNote(cardArray, currCardIndex, time, incorrect_attempts, attemptId);
+        setFeedback("Correct!");
+        setFeedbackClass(""); 
+        resetDisabledButtons();
 
-      await insertMusicNote(cardArray, currCardIndex, time, incorrect_attempts, attemptId);
-
-
-      // Last card
-      if (currCardIndex === cardArray.length - 1) {
-        stopStopwatch();
-        // console.log("You have completed the whole set of cards!");
-        
-        incrementPageState();
-        
-
-      } else { // move to next card
-        incrementCurrCardIndex();
-        startStopwatch()
-
-
-        // Reset incorrect attempts
-        resetIncorrectAttempts();
-        
+        if (currCardIndex === cardArray.length - 1) {
+          stopStopwatch();
+          incrementPageState();
+        } else {
+          incrementCurrCardIndex();
+          startStopwatch();
+          resetIncorrectAttempts();
+        }
+      } catch (error) {
+        console.error("Error inserting music note:", error);
+        setFeedback("An error occurred while saving. Please try again.");
       }
-
-    }
-    else {
+    } else {
       incrementIncorrectAttempts();
-      // console.log("incorrect. You inputted:", inputAnswer);
+      setFeedback("Incorrect. Try again.");
+      setFeedbackClass("incorrect");
+      disableButton(inputAnswer);
     }
-  }
 
-
+    setLoading(false);
+  };
 
   return (
     <>
+      {feedback && <div className={`feedback-message ${feedbackClass}`}>{feedback}</div>}
       <div className="grid grid-cols-3 gap-4">
-        <Button onClick={async () => await checkAnswer("A")} className="m-5">A</Button> {/* Add m-2 for margin */}
-        <Button onClick={async () => await checkAnswer("B")} className="m-5">B</Button>
-        <Button onClick={async () => await checkAnswer("C")} className="m-5">C</Button>
+        {['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(letter => (
+          <Button
+            key={letter}
+            onClick={() => checkAnswer(letter)}
+            className="m-5"
+            disabled={disabledButtons.has(letter)} 
+            aria-label={`Select answer ${letter}`}
+          >
+            {letter}
+          </Button>
+        ))}
       </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        <Button onClick={async () => await checkAnswer("D")} className="m-5">D</Button>
-        <Button onClick={async () => await checkAnswer("E")} className="m-5">E</Button>
-        <Button onClick={async () => await checkAnswer("F")} className="m-5">F</Button>
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        <Button onClick={async () => await checkAnswer("G")} className="m-5">G</Button>
-      </div>
-
     </>
-  )
+  );
 }
