@@ -15,6 +15,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 to-purple-600 text-white p-6">
+
         {pageState === 0 && <LandingPage />}
         {pageState === 1 && <MainCardPage />}
         {pageState === 2 && <CompletedPage />}

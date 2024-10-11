@@ -4,18 +4,21 @@ import { useCardStore } from "../stores/CardStore";
 import { usePageStore } from "../stores/usePageStore";
 import { createAttempt } from "../utils/createNewAttempt";
 
+import { useState } from 'react';
 
 export default function LandingPage() {
     const { setAttemptId } = useCardStore();
     const { setPageState } = usePageStore();
+    const [attemptCreated, setAttemptCreated] = useState(false); // State to track if attempt was created
 
     const handleAttemptCreation = async () => {
+        if (attemptCreated) return; // Prevent further calls
+        setAttemptCreated(true); // Mark attempt as created
+
         const attemptId = await createAttempt();
         setAttemptId(attemptId);
         setPageState(1);
-    }
-
-
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
@@ -28,5 +31,5 @@ export default function LandingPage() {
                 Click to Begin
             </Button>
         </div>
-    )
+    );
 }

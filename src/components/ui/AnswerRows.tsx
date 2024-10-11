@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { useCardStore } from "../../stores/CardStore";
 import { useStopwatchStore } from "@/stores/useStopwatchStore";
@@ -21,10 +19,10 @@ export function AnswerRows() {
   
   const { time, startStopwatch, stopStopwatch, resetStopwatch } = useStopwatchStore();
   const { incrementPageState } = usePageStore();
+  const { setCorrect } = useCardStore();
   
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
-  const [feedbackClass, setFeedbackClass] = useState("");
   const [disabledButtons, setDisabledButtons] = useState(new Set());
 
   const disableButton = (button: string) => {
@@ -41,28 +39,39 @@ export function AnswerRows() {
     
     if (inputAnswer === answer) {
       resetStopwatch();
-      try {
-        await insertMusicNote(cardArray, currCardIndex, time, incorrect_attempts, attemptId);
-        setFeedback("Correct!");
-        setFeedbackClass(""); 
-        resetDisabledButtons();
+      
+      // Call insertMusicNote and handle its promise separately
+      const insertPromise = insertMusicNote(cardArray, currCardIndex, time, incorrect_attempts, attemptId)
+        .then(() => {
+          setCorrect(true);
+          resetDisabledButtons();
 
-        if (currCardIndex === cardArray.length - 1) {
-          stopStopwatch();
-          incrementPageState();
-        } else {
-          incrementCurrCardIndex();
-          startStopwatch();
-          resetIncorrectAttempts();
-        }
-      } catch (error) {
-        console.error("Error inserting music note:", error);
-        setFeedback("An error occurred while saving. Please try again.");
+          // Clear feedback after 2 seconds
+          setTimeout(() => {
+            setCorrect(false);
+          }, 500);
+        })
+        .catch((error) => {
+          console.error("Error inserting music note:", error);
+          setFeedback("An error occurred while saving. Please try again.");
+        });
+    
+      // Continue with the flow without waiting for insertMusicNote to resolve
+      if (currCardIndex === cardArray.length - 1) {
+        stopStopwatch();
+        incrementPageState();
+      } else {
+        incrementCurrCardIndex();
+        startStopwatch();
+        resetIncorrectAttempts();
       }
+    
+      // You can also handle any UI updates after the promise resolves, if needed
+      insertPromise.then(() => {
+        // Any additional UI updates after successful insertion can go here
+      });
     } else {
       incrementIncorrectAttempts();
-      setFeedback("Incorrect. Try again.");
-      setFeedbackClass("incorrect");
       disableButton(inputAnswer);
     }
 
@@ -71,13 +80,13 @@ export function AnswerRows() {
 
   return (
     <>
-      {feedback && <div className={`feedback-message ${feedbackClass}`}>{feedback}</div>}
-      <div className="grid grid-cols-3 gap-4">
+      {feedback && <p>{feedback}</p>}
+      <div className="grid grid-cols-3 gap-10 mr-6 mt-5">
         {['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(letter => (
           <Button
             key={letter}
             onClick={() => checkAnswer(letter)}
-            className="m-5"
+            className="m-5 w-full h-12 rounded-full "
             disabled={disabledButtons.has(letter)} 
             aria-label={`Select answer ${letter}`}
           >

@@ -18,6 +18,10 @@ interface CardStoreState {
 
     attemptId: number;
     setAttemptId: (newAttemptId: number) => void;
+
+    correct: boolean;
+    setCorrect: (newCorrect: boolean) => void;
+
 }
 
 export const useCardStore = create<CardStoreState>((set) => ({
@@ -43,5 +47,8 @@ export const useCardStore = create<CardStoreState>((set) => ({
     incrementIncorrectAttempts: () => set((state) => ({ incorrect_attempts: state.incorrect_attempts + 1 })),
 
     attemptId: -1,
-    setAttemptId: (newAttemptId: number) => set({ attemptId: newAttemptId })
+    setAttemptId: (newAttemptId: number) => set({ attemptId: newAttemptId }),
+
+    correct: false,
+    setCorrect: (newCorrect: boolean) => set({ correct: newCorrect }),
 }));

@@ -1,6 +1,4 @@
-"use client";
 import { MusicCard } from "../components/ui/MusicCard"
-import { AnswerRows } from "../components/ui/AnswerRows"
 import { useCardStore } from "../stores/CardStore";
 import { useStopwatchStore } from "@/stores/useStopwatchStore";
 import music_notes from "../data/music_notes.json";
@@ -68,9 +66,8 @@ export default function MainCardPage() {
       <div className="flex flex-col items-center justify-center min-h-screen">
         {cardArray && answer ? (
           <>
-            <h1>Time: {new Date(time).toISOString().substr(11, 8)}</h1>
+            <h1 style={{marginBottom: "20px"}}>Time: {new Date(time).toISOString().substr(11, 8)}</h1>
             <MusicCard noteString={cardArray[currCardIndex]} />
-            <AnswerRows />
           </>
         ) : (
           <>Loading...</>
