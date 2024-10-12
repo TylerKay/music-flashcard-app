@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useCardStore } from "../../stores/CardStore";
 import { useStopwatchStore } from "@/stores/useStopwatchStore";
 import { usePageStore } from "../../stores/usePageStore";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { insertMusicNote } from "../../utils/createMusicNote";
 
 export function AnswerRows() {
@@ -25,6 +25,10 @@ export function AnswerRows() {
   const [feedback, setFeedback] = useState("");
   const [disabledButtons, setDisabledButtons] = useState(new Set());
 
+  const oofSoundEffect = useRef<HTMLAudioElement>(null);
+  const yaySoundEffect = useRef<HTMLAudioElement>(null);
+
+
   const disableButton = (button: string) => {
     setDisabledButtons((prev) => new Set(prev).add(button));
   };
@@ -38,6 +42,14 @@ export function AnswerRows() {
     setLoading(true);
     
     if (inputAnswer === answer) {
+      // Play the correct sound effect
+      if (yaySoundEffect.current) {
+        yaySoundEffect.current.currentTime = 0; // Reset to start
+        yaySoundEffect.current.play().catch((error) => {
+          console.error("Error playing incorrect sound:", error);
+        });
+      }
+
       resetStopwatch();
       
       // Call insertMusicNote and handle its promise separately
@@ -71,8 +83,16 @@ export function AnswerRows() {
         // Any additional UI updates after successful insertion can go here
       });
     } else {
-      incrementIncorrectAttempts();
-      disableButton(inputAnswer);
+        // Play the incorrect sound effect
+        if (oofSoundEffect.current) {
+          oofSoundEffect.current.currentTime = 0; // Reset to start
+          oofSoundEffect.current.play().catch((error) => {
+            console.error("Error playing incorrect sound:", error);
+        });
+        incrementIncorrectAttempts();
+        disableButton(inputAnswer);
+      }
+
     }
 
     setLoading(false);
@@ -81,6 +101,10 @@ export function AnswerRows() {
   return (
     <>
       {feedback && <p>{feedback}</p>}
+      {/* Link audio file of oof_sound_effect.mp3 */}
+      <audio ref={oofSoundEffect} src="/audio/oof_sound_effect.mp3" preload="auto" />
+      <audio ref={yaySoundEffect} src="/audio/yay_sound_effect.mp3" preload="auto" />
+
       <div className="grid grid-cols-3 gap-10 mr-6 mt-5">
         {['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(letter => (
           <Button
